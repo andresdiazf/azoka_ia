@@ -6,12 +6,14 @@ function App() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
+  const [pdfText, setPdfText] = useState(''); // Estado para almacenar el texto extraído del PDF
   const [isError, setIsError] = useState(false);
 
   // Función que se ejecuta cuando se selecciona un archivo
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
     setResponseMessage('');
+    setPdfText('');
     setIsError(false);
     console.log('Archivo seleccionado:', selectedFile);
   };
@@ -39,9 +41,11 @@ function App() {
 
       const result = await response.json();
       setResponseMessage(result.message); // Guardar mensaje de éxito
+      setPdfText(result.data); // Guardar el texto extraído del PDF
       setIsError(false);
     } catch (error) {
       setResponseMessage(error.message); // Mostrar mensaje de error
+      setPdfText('');
       setIsError(true);
     } finally {
       setLoading(false);
@@ -52,13 +56,14 @@ function App() {
   const handleClearFile = () => {
     setFile(null);
     setResponseMessage('');
+    setPdfText('');
     setIsError(false);
   };
 
   return (
     <div className="App">
       <h1>Sube tu hoja de vida (PDF)</h1>
-      {/* Usando el componente FileUpload */}
+      {/* Componente para subir archivos */}
       <FileUpload onFileSelect={handleFileSelect} />
 
       {file && (
@@ -84,6 +89,14 @@ function App() {
         <p className={`mt-4 ${isError ? 'text-red-500' : 'text-green-500'}`}>
           {responseMessage}
         </p>
+      )}
+
+      {/* Mostrar el texto extraído del PDF si está disponible */}
+      {pdfText && !isError && (
+        <div className="mt-4">
+          <h3 className="font-bold">Texto extraído del PDF:</h3>
+          <pre className="whitespace-pre-wrap bg-gray-100 p-4 rounded-md">{pdfText}</pre>
+        </div>
       )}
     </div>
   );

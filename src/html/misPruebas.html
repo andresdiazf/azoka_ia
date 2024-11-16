@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azoka - Mis Pruebas</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+        }
+        .main-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .tests-section {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        .test-description {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        .test-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #dee2e6;
+        }
+        .test-title {
+            font-weight: 500;
+            margin: 0;
+        }
+        .start-btn {
+            background-color: transparent;
+            border: 1px solid #dee2e6;
+            padding: 0.5rem 2rem;
+            border-radius: 4px;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        .start-btn:hover {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a class="navbar-brand " href="#">Azoka</a>
+            <div class="nav-icons">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <h4 class="mb-4 text-center">Mis Pruebas</h4>
+        
+        <div class="tests-section">
+            <p class="test-description">
+                Los invitamos a diligenciar los siguientes cuestionarios, accediendo a los links en el mismo orden que aparecen y permaneciendo un breve descando entre cada uno de ellos. Recuerde buscar un espacio libre de interrupciones.
+            </p>
+        </div>
+            
+            <div class="test-card">
+                <h5 class="test-title">Test de personalidad</h5>
+                <button class="start-btn">Iniciar</button>
+            </div>
+            
+            <div class="test-card">
+                <h5 class="test-title">Pruebas psicotécnicas</h5>
+                <button class="start-btn">Iniciar</button>
+            </div>
+        
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

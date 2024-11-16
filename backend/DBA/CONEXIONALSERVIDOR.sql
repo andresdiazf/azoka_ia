@@ -85,4 +85,3 @@ CREATE TABLE Candidato_Final (
     FOREIGN KEY (id_candidato) REFERENCES Candidato(id_candidato),
     FOREIGN KEY (id_curriculum) REFERENCES Curriculum(id_curriculum)
 );
-rr
