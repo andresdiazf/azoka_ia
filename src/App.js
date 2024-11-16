@@ -6,10 +6,13 @@ function App() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [responseMessage, setResponseMessage] = useState('');
+  const [isError, setIsError] = useState(false);
 
   // Función que se ejecuta cuando se selecciona un archivo
   const handleFileSelect = (selectedFile) => {
     setFile(selectedFile);
+    setResponseMessage('');
+    setIsError(false);
     console.log('Archivo seleccionado:', selectedFile);
   };
 
@@ -36,8 +39,10 @@ function App() {
 
       const result = await response.json();
       setResponseMessage(result.message); // Guardar mensaje de éxito
+      setIsError(false);
     } catch (error) {
       setResponseMessage(error.message); // Mostrar mensaje de error
+      setIsError(true);
     } finally {
       setLoading(false);
     }
@@ -47,6 +52,7 @@ function App() {
   const handleClearFile = () => {
     setFile(null);
     setResponseMessage('');
+    setIsError(false);
   };
 
   return (
@@ -54,6 +60,7 @@ function App() {
       <h1>Sube tu hoja de vida (PDF)</h1>
       {/* Usando el componente FileUpload */}
       <FileUpload onFileSelect={handleFileSelect} />
+
       {file && (
         <div>
           <p>Archivo seleccionado: {file.name}</p>
@@ -72,7 +79,12 @@ function App() {
           </button>
         </div>
       )}
-      {responseMessage && <p className="mt-4 text-green-500">{responseMessage}</p>}
+
+      {responseMessage && (
+        <p className={`mt-4 ${isError ? 'text-red-500' : 'text-green-500'}`}>
+          {responseMessage}
+        </p>
+      )}
     </div>
   );
 }
