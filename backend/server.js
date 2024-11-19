@@ -1,52 +1,56 @@
 const express = require('express');
-const cors = require('cors'); // Importar cors
+const cors = require('cors');
 const multer = require('multer');
-const pdfParse = require('pdf-parse');
-const fs = require('fs');
 const path = require('path');
+const fs = require('fs');
+const pdfParse = require('pdf-parse');
+require('dotenv').config();
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-// Configurar CORS para permitir solicitudes desde el frontend
-app.use(cors({ origin: 'http://localhost:3000' }));
+// Middleware global
+app.use(cors());
+app.use(express.json());
 
-// Configuración de Multer para subir archivos
+// Servir archivos estáticos desde la carpeta "uploads"
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Configuración de Multer para carga de archivos
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/'); // Carpeta para almacenar archivos
+        cb(null, 'uploads/'); // Carpeta de destino
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname)); // Nombre único del archivo
+        cb(null, Date.now() + path.extname(file.originalname)); // Nombre único para el archivo
     },
 });
 const upload = multer({ storage });
 
-// Ruta para manejar la carga y análisis del archivo
+// Ruta para subir y procesar archivos PDF
 app.post('/upload', upload.single('file'), async (req, res) => {
     try {
         if (!req.file) {
-            console.log('No se recibió ningún archivo.');
-            return res.status(400).send({ message: 'No se ha subido ningún archivo.' });
+            return res.status(400).json({ message: 'No se ha subido ningún archivo.' });
         }
 
-        console.log('Archivo recibido:', req.file.path);
-
-        // Leer y extraer texto del PDF
+        // Leer y analizar el contenido del archivo PDF
         const pdfBuffer = fs.readFileSync(req.file.path);
         const data = await pdfParse(pdfBuffer);
 
-        console.log('Texto extraído del PDF:', data.text);
-
-        res.status(200).send({
+        res.status(200).json({
             message: 'Archivo procesado exitosamente',
             data: data.text,
         });
     } catch (error) {
         console.error('Error procesando el archivo:', error.message);
-        res.status(500).send({ message: 'Error procesando el archivo.' });
+        res.status(500).json({ message: 'Error procesando el archivo.' });
     }
 });
+
+// Importar rutas para funcionalidades adicionales
+const routes = require('./routes/index'); // Ajusta la ruta si el archivo está en otra carpeta
+app.use('/api', routes); // Prefijo '/api' para las rutas del index.js
 
 // Iniciar el servidor
 app.listen(PORT, () => {
